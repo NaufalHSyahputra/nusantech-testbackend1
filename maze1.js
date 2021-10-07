@@ -2,20 +2,19 @@ function replaceChar(origString, replaceChar, index) {
   let firstPart = origString.substr(0, index);
   let lastPart = origString.substr(index + 1);
 
-  let newString = firstPart + replaceChar + lastPart;
-  return newString;
+  return firstPart + replaceChar + lastPart;
 }
-function generateMaze1(s) {
+function generateMaze1(s, isHTML=false) {
   if ((s + 1) % 4 !== 0 || s <= 0) {
     console.log(
       "Input harus lebih dari 0 atau input harus sesuai dengan 4n - 1, dimana n adalah angka positif"
     );
     return;
   }
-  const totalLoop = s / 4;
+  const totalLoop = (s + 1) / 4;
   const array = [];
   const tembok_tebal = "@";
-  const jalan_lebar = " ";
+  const jalan_lebar = !isHTML ? " " : "&nbsp;";
   const tembok = tembok_tebal.repeat(s);
   for (let i = 0; i < totalLoop; i++) {
     array[i] = [];
@@ -30,12 +29,11 @@ function generateMaze1(s) {
         default:
           array[i][j] =
             tembok.substr(0, 1) +
-            jalan_lebar.repeat(s - 2) +
+            jalan_lebar.repeat(!isHTML ? s - 2 : s * 3) +
             tembok.substr(s - 1, 1);
           break;
       }
     }
   }
-  return array.map((e) => e.join("\r\n")).join("\r\n");
+  return array.map((e) => e.join("<br>")).join("<br>");
 }
-generateMaze1(15);
