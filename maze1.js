@@ -15,6 +15,7 @@ function generateMaze1(s, isHTML=false) {
   const array = [];
   const tembok_tebal = "@";
   const jalan_lebar = !isHTML ? " " : "&nbsp;";
+  const break_line = !isHTML ? "\n" : "<br>";
   const tembok = tembok_tebal.repeat(s);
   for (let i = 0; i < totalLoop; i++) {
     array[i] = [];
@@ -35,5 +36,12 @@ function generateMaze1(s, isHTML=false) {
       }
     }
   }
-  return array.map((e) => e.join("<br>")).join("<br>");
+  if (!isHTML) {
+    console.log(array.map((e) => e.join(break_line)).join(break_line));
+  }
+  return array.map((e) => e.join(break_line)).join(break_line);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  generateMaze1(15, false)
 }
